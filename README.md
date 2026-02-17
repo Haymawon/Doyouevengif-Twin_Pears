@@ -7,21 +7,19 @@ Built with **Vue 3**, **TypeScript**, **Tailwind CSS** (frontend) and **Flask**,
 
 ---
 
-## ✨ Features
+## Features
 
-- 🔐 **User accounts** – register, login, profile with cooldown‑based name/username changes.
-- 🔍 **Search anime/manga** – with live autocomplete suggestions.
-- 📜 **Search history** – stored per user, used to personalize the home feed.
-- 🏠 **Personalized home** – recommendations based on your past searches (or trending if none).
-- 📄 **Internal detail pages** – full info, synopsis, stats, and **recommendations** for each entry.
-- 🎨 **Three themes** – Dark Purple (default), Light Pink, Dark Blue – applied via CSS variables and persisted.
-- 📱 **Fully responsive** – works on mobile, tablet, desktop.
-- ⚡ **Smooth animations** – hover effects, transitions, loading skeletons.
-- 🔙 **Global back button** – intelligently returns to previous page or home.
-
+- **User accounts** – register, login, profile with cooldown‑based name/username changes.
+- **Search anime/manga** – with live autocomplete suggestions.
+- **Search history** – stored per user, used to personalize the home feed.
+- **Personalized home** – recommendations based on your past searches (or trending if none).
+- **Internal detail pages** – full info, synopsis, stats, and **recommendations** for each entry.
+- **Three themes** – Dark Purple (default), Light Pink, Dark Blue – applied via CSS variables and persisted.
+- **Fully responsive** – works on mobile, tablet, desktop.
+- **Smooth animations** – hover effects, transitions, loading skeletons.
 ---
 
-## 🛠️ Tech Stack
+## Tech Stack
 
 ### Frontend
 - [Vue 3](https://vuejs.org/) – Composition API
