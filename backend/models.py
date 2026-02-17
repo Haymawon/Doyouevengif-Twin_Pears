@@ -1,5 +1,6 @@
+import secrets
+from datetime import datetime, timedelta
 from flask_sqlalchemy import SQLAlchemy
-from datetime import datetime
 
 db = SQLAlchemy()
 
@@ -30,3 +31,18 @@ class SearchHistory(db.Model):
     timestamp = db.Column(db.DateTime, default=datetime.utcnow)
 
     user = db.relationship('User', backref=db.backref('searches', lazy=True))
+
+class ResetToken(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    token = db.Column(db.String(100), unique=True, nullable=False)
+    expires_at = db.Column(db.DateTime, nullable=False)
+    used = db.Column(db.Boolean, default=False)
+
+    user = db.relationship('User', backref=db.backref('reset_tokens', lazy=True))
+
+    @staticmethod
+    def generate_token(user_id):
+        token = secrets.token_urlsafe(32)
+        expires_at = datetime.utcnow() + timedelta(hours=1)
+        return ResetToken(user_id=user_id, token=token, expires_at=expires_at)
