@@ -1,7 +1,13 @@
 import { defineStore } from 'pinia'
 
+type SearchCategoryState = {
+  query: string;
+  results: any[];
+  scroll: number;
+};
+
 export const useSearchStateStore = defineStore('searchState', {
-  state: () => ({
+  state: (): { anime: SearchCategoryState; manga: SearchCategoryState } => ({
     anime: {
       query: '',
       results: [],
@@ -14,12 +20,12 @@ export const useSearchStateStore = defineStore('searchState', {
     },
   }),
   actions: {
-    setAnimeState(query, results, scroll) {
-      this.anime = { query, results, scroll }
-    },
-    setMangaState(query, results, scroll) {
-      this.manga = { query, results, scroll }
-    },
+      setAnimeState(query: string, results: any[], scroll: number) {
+        this.anime = { query, results, scroll }
+      },
+      setMangaState(query: string, results: any[], scroll: number) {
+        this.manga = { query, results, scroll }
+      },
     clearAnime() {
       this.anime = { query: '', results: [], scroll: 0 }
     },
