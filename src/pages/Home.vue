@@ -1,7 +1,7 @@
 <template>
   <div class="space-y-8" v-if="auth.user">
     <div class="flex items-center justify-between">
-      <h1 class="text-3xl font-bold text-foreground">welcome back, <span class="text-accent">{{ auth.user.name }}</span></h1>
+      <h1 class="text-3xl font-bold text-foreground">DoYouEvenGif, <span class="text-accent">{{ auth.user.name }}</span></h1>
     </div>
 
     <section v-if="filteredRecommendations.length">
@@ -25,42 +25,34 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, computed } from 'vue'
+import { onBeforeRouteUpdate } from 'vue-router'
 import { useAuthStore } from '@/stores/auth'
+import { useHomeStore } from '@/stores/home'
 import { api } from '@/services/api'
 import AnimeCard from '@/components/AnimeCard.vue'
-
-
-const auth = useAuthStore()
 import type { JikanAnime } from '@/types/anime'
 
-
-import { computed } from 'vue'
-const recommendations = ref<JikanAnime[]>([])
+const auth = useAuthStore()
+const homeStore = useHomeStore()
 const trending = ref<JikanAnime[]>([])
-const filteredRecommendations = computed(() => recommendations.value.filter((item) => item && item.mal_id && item.title && item.images && item.synopsis && item.episodes !== undefined && item.score !== undefined && item.status))
 
-onMounted(async () => {
+const filteredRecommendations = computed(() => {
+  // Deduplicate by mal_id
+  const seen = new Set()
+  return homeStore.recommendations.filter((item) => {
+    if (!item || !item.mal_id || !item.title || !item.images || !item.synopsis || item.episodes === undefined || item.score === undefined || !item.status) return false
+    if (seen.has(item.mal_id)) return false
+    seen.add(item.mal_id)
+    return true
+  })
+})
+
+async function loadHomeData() {
   if (!auth.user) return
-  try {
-    const data = await api.getHomeRecommendations()
-    // Filter and map to JikanAnime shape
-    recommendations.value = (data.recommendations as any[]).map((item) => ({
-      mal_id: item.mal_id,
-      title: item.title,
-      images: item.images,
-      synopsis: item.synopsis ?? '',
-      episodes: item.episodes ?? null,
-      score: item.score ?? null,
-      year: item.year ?? null,
-      status: item.status ?? '',
-      type: item.type,
-      duration: item.duration,
-      rating: item.rating,
-    })).filter((item) => item.mal_id && item.title && item.images && item.synopsis !== undefined && item.episodes !== undefined && item.score !== undefined && item.status)
-  } catch (err) {
-    console.error(err)
-  }
+  
+  await homeStore.fetchHome()
+  
   const trendingRes = await fetch('https://api.jikan.moe/v4/top/anime')
   const trendingData = await trendingRes.json()
   trending.value = (trendingData.data as any[]).map((item) => ({
@@ -75,6 +67,13 @@ onMounted(async () => {
     type: item.type,
     duration: item.duration,
     rating: item.rating,
-  })).filter((item) => item.mal_id && item.title && item.images && item.synopsis !== undefined && item.episodes !== undefined && item.score !== undefined && item.status)
-})
+  })).filter((item) => 
+    item.mal_id && item.title && item.images && 
+    item.synopsis !== undefined && item.episodes !== undefined && 
+    item.score !== undefined && item.status
+  )
+}
+
+onMounted(loadHomeData)
+onBeforeRouteUpdate(loadHomeData)
 </script>
