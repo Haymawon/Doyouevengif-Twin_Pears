@@ -9,7 +9,7 @@ export const useHomeStore = defineStore('home', () => {
   async function fetchHome() {
     try {
       const data = await api.getHomeRecommendations()
-      // Map exactly as you did in Home.vue
+      
       recommendations.value = (data.recommendations as any[]).map((item) => ({
         mal_id: item.mal_id,
         title: item.title,
