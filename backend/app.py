@@ -208,17 +208,27 @@ def manga_detail(id):
 @jwt_required()
 def home():
     user_id = get_jwt_identity()
-    recent = SearchHistory.query.filter_by(user_id=user_id).order_by(SearchHistory.timestamp.desc()).limit(5).all()
+    session = db.session
+    recent = session.query(SearchHistory).filter_by(user_id=user_id).order_by(SearchHistory.timestamp.desc()).limit(5).all()
     recs = []
+    seen_ids = set()
     for r in recent:
         if r.type == 'anime':
             res = search_anime_jikan(r.query)
         else:
             res = search_manga_anilist(r.query)
         if res:
-            recs.extend(res[:3])
+            for item in res:
+                mal_id = item.get('mal_id') or item.get('id')
+                if mal_id and mal_id not in seen_ids:
+                    recs.append(item)
+                    seen_ids.add(mal_id)
+                if len(recs) >= 20:
+                    break
+        if len(recs) >= 20:
+            break
     if not recs:
-        trending = requests.get(f"{JIKAN_BASE}/top/anime", timeout=5).json().get('data', [])[:10]
+        trending = requests.get(f"{JIKAN_BASE}/top/anime", timeout=5).json().get('data', [])[:20]
         recs = trending
     return jsonify({'recommendations': recs[:20]})
 
@@ -235,7 +245,39 @@ def rec_anime(id):
 @app.route('/api/recommendations/manga/<int:id>', methods=['GET'])
 @jwt_required()
 def rec_manga(id):
-    return jsonify([])
+        # Use AniList API to get manga recommendations
+        gql = '''
+        query ($id: Int) {
+            Media(id: $id, type: MANGA) {
+                recommendations(sort: RATING_DESC, page: 1, perPage: 10) {
+                    nodes {
+                        mediaRecommendation {
+                            id
+                            title { romaji english native }
+                            coverImage { large medium }
+                            description
+                            chapters
+                            volumes
+                            averageScore
+                            status
+                            startDate { year }
+                        }
+                    }
+                }
+            }
+        }
+        '''
+        try:
+                resp = requests.post(ANILIST_ENDPOINT, json={'query': gql, 'variables': {'id': id}}, timeout=5)
+                data = resp.json().get('data', {}).get('Media', {})
+                recs = []
+                for node in data.get('recommendations', {}).get('nodes', []):
+                        m = node.get('mediaRecommendation')
+                        if m:
+                                recs.append(m)
+                return jsonify(recs[:6])
+        except Exception as e:
+                return jsonify([])
 
 @app.route('/api/forgot-password', methods=['POST'])
 def forgot_password():
