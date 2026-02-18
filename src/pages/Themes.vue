@@ -34,7 +34,8 @@ interface ThemeOption {
 }
 const themes: ThemeOption[] = [
   { id: 'dark-purple', name: 'Dark Purple', description: 'Sleek and mysterious', preview: '#0b0710' },
-  { id: 'light-pink', name: 'Light Pink', description: 'Soft and cute', preview: '#fff0f7' },
+  { id: 'light-pink', name: 'Light Pink', description: 'Soft and cute', preview: '#ff8fc7' },
   { id: 'dark-blue', name: 'Dark Blue', description: 'Deep ocean vibes', preview: '#0a1929' },
 ]
+
 </script>
