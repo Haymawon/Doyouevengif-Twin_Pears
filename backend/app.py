@@ -34,6 +34,7 @@ app.config['JWT_ACCESS_TOKEN_EXPIRES'] = timedelta(days=1)
 # CORS
 CORS(app, supports_credentials=True, origins=[
     "http://localhost:5173",
+    "https://doyouevengiff.netlify.app"
 ])
 
 # Mail config
@@ -363,3 +364,4 @@ def test_email():
 
 if __name__ == '__main__':
     app.run(debug=True, port=5000)
+
