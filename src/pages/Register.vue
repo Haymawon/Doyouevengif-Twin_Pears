@@ -29,6 +29,7 @@ import { useAuthStore } from '@/stores/auth'
 import { api } from '@/services/api'
 import BackButton from '@/components/BackButton.vue'
 
+
 const router = useRouter()
 const auth = useAuthStore()
 const name = ref('')
