@@ -9,7 +9,7 @@
         <router-link to="/about" class="hover:text-accent transition">About</router-link>
         <router-link to="/privacy" class="hover:text-accent transition">Privacy</router-link>
         <router-link to="/terms" class="hover:text-accent transition">Terms</router-link>
-        <a href="https://github.com/hayma/doyouevengif" target="_blank" class="hover:text-accent transition">GitHub</a>
+        <a href="https://github.com/Haymawon/Doyouevengif" target="_blank" class="hover:text-accent transition">GitHub</a>
       </div>
     </div>
   </footer>
