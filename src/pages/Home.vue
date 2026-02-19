@@ -29,7 +29,6 @@ import { ref, onMounted, computed } from 'vue'
 import { onBeforeRouteUpdate } from 'vue-router'
 import { useAuthStore } from '@/stores/auth'
 import { useHomeStore } from '@/stores/home'
-import { api } from '@/services/api'
 import AnimeCard from '@/components/AnimeCard.vue'
 import type { JikanAnime } from '@/types/anime'
 
@@ -77,3 +76,4 @@ async function loadHomeData() {
 onMounted(loadHomeData)
 onBeforeRouteUpdate(loadHomeData)
 </script>
+
