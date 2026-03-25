@@ -3,170 +3,165 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-  <title>Echoes · Devoted to letting go</title>
+  <title>Full Frame · Letting Go</title>
   <style>
+    /* RESET & FULL SCREEN BASE */
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
     }
 
-    
-    body {
-      background: #0b0a0f;   
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 100vh;
-      font-family: system-ui, 'Segoe UI', 'Roboto', 'Inter', 'Helvetica Neue', sans-serif;
-      padding: 1.5rem;
-    }
-    
-    .memory-card {
-      position: relative;
-      max-width: 735px;          
-      width: 100%;
-      aspect-ratio: 735 / 474;   
-      
-      
-      background-image: url('93dbc2c52df623e4fd95b455601d50b8.jpg');
-      background-size: cover;      
-      background-position: center 30%;
-      background-repeat: no-repeat;
-      
-      border-radius: 2rem;
-      box-shadow: 0 25px 45px -12px rgba(0, 0, 0, 0.45), 0 0 0 1px rgba(255, 255, 255, 0.05);
-      transition: transform 0.25s ease, box-shadow 0.3s ease;
-      overflow: hidden;
-    }
-
-    
-    .memory-card:hover {
-      transform: scale(1.01);
-      box-shadow: 0 30px 50px -18px black;
-    }
-
-    .memory-card::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(135deg, rgba(0, 0, 0, 0.35) 0%, rgba(0, 0, 0, 0.5) 100%);
-      z-index: 1;
-      pointer-events: none; 
-      backdrop-filter: brightness(0.95) blur(0.5px);
-    }
-    
-    .verse-container {
-      position: relative;
-      z-index: 2;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+    html, body {
       width: 100%;
       height: 100%;
-      padding: 1.5rem;
+      background: #000; /* deep fallback – visible on letterbox areas */
     }
 
-    
-    .lyrics {
-      background: rgba(10, 8, 18, 0.75);
-      backdrop-filter: blur(12px);
-      border-radius: 2rem;
-      padding: 1.4rem 2rem;
+    body {
+      /* remove any default spacing */
+      margin: 0;
+      padding: 0;
+      font-family: system-ui, 'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', sans-serif;
+      
+      /* full-screen container using viewport units */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden; /* prevents scrollbars when background-size: contain leaves gaps */
+    }
+
+    /* 
+      FULLSCREEN BACKGROUND CONTAINER
+      - covers entire viewport (no padding/margins)
+      - uses background-size: contain → ENTIRE image visible, NO cropping
+      - centered with background-color black for unoccupied areas (letterbox/pillarbox)
+      - on rotate, the image scales perfectly to fit without cutting anything
+    */
+    .fullscreen-image {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: url('93dbc2c52df623e4fd95b455601d50b8.jpg'); /* 🔁 REPLACE WITH YOUR REAL IMAGE PATH */
+      background-size: contain;      /* ensures full image visible – no cut */
+      background-position: center;
+      background-repeat: no-repeat;
+      background-color: #0a0a0a;    /* elegant dark border for unmatched aspect ratios */
+      z-index: 1;
+    }
+
+    /* TEXT LAYER – overlays directly on top of the image, NO BOX BACKGROUND */
+    .verse-overlay {
+      position: relative;
+      z-index: 2;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       text-align: center;
-      max-width: 90%;
-      border: 1px solid rgba(255, 245, 220, 0.25);
-      box-shadow: 0 12px 28px -8px rgba(0, 0, 0, 0.4);
-      transition: all 0.2s;
+      padding: 1.5rem;
+      /* no background, no backdrop-filter, no border – exactly "no text box" */
     }
 
-    
+    /* lyrical block – pure text without any container box */
+    .lyrics-pure {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      max-width: 90%;
+    }
+
+    /* each line styled for clarity over any image */
     .verse-line {
       display: block;
-      font-weight: 500;
-      font-size: 1.55rem;
+      font-weight: 560;
+      font-size: clamp(1.4rem, 7vw, 2.8rem);
       letter-spacing: -0.01em;
-      line-height: 1.45;
-      color: #fff5ea;
-      text-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
-      margin: 0.4rem 0;
-      font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', monospace;
+      line-height: 1.35;
+      color: #fffef7;
+      text-shadow: 0 4px 12px rgba(0, 0, 0, 0.6), 0 1px 2px rgba(0, 0, 0, 0.8);
+      font-family: inherit;
+      white-space: normal;
+      word-break: keep-all;
     }
 
-    
-    .verse-line:first-child {
-      margin-top: 0;
-    }
-    .verse-line:last-child {
-      margin-bottom: 0;
-    }
-
-    
+    /* subtle distinction: last line emotional italics */
     .verse-line:last-child {
       font-style: italic;
-      font-weight: 540;
+      font-weight: 550;
       letter-spacing: 0.2px;
-      color: #ffefd6;
+      text-shadow: 0 4px 14px rgba(0, 0, 0, 0.7);
     }
 
-    
-    @media (max-width: 700px) {
-      .lyrics {
-        padding: 1.2rem 1.5rem;
-      }
+    /* responsive: slightly smaller on very narrow devices but still elegant */
+    @media (max-width: 560px) {
       .verse-line {
-        font-size: 1.3rem;
+        font-size: clamp(1.2rem, 6.5vw, 2rem);
         line-height: 1.4;
       }
-    }
-
-    @media (max-width: 520px) {
-      .verse-line {
-        font-size: 1.12rem;
-      }
-      .lyrics {
-        padding: 1rem 1.2rem;
-        border-radius: 1.6rem;
-      }
-      .memory-card {
-        border-radius: 1.4rem;
+      .verse-overlay {
+        padding: 1rem;
       }
     }
 
     @media (max-width: 420px) {
       .verse-line {
-        font-size: 1rem;
+        font-size: clamp(1rem, 5.8vw, 1.7rem);
       }
-      .lyrics {
-        padding: 0.9rem 1rem;
+      .lyrics-pure {
+        gap: 0.3rem;
       }
     }
 
-    
-    @media (max-width: 360px) {
+    /* optional: if someone uses a very tall display, text stays comfortable */
+    @media (max-height: 500px) and (orientation: landscape) {
       .verse-line {
-        font-size: 0.9rem;
-        line-height: 1.35;
+        font-size: clamp(1rem, 5vh, 1.9rem);
+      }
+      .verse-overlay {
+        padding: 0.8rem;
       }
     }
 
-    
-    .memory-card, .memory-card::before, .lyrics {
-      user-select: text;    
+    /* ensure text is always selectable */
+    .verse-line {
+      user-select: text;
+    }
+
+    /* remove any focus outlines that could appear, keep clean */
+    .fullscreen-image, .verse-overlay {
+      outline: none;
     }
   </style>
 </head>
 <body>
-  
-  <div class="memory-card">
-    <div class="verse-container">
-      <div class="lyrics">
-        <span class="verse-line">I guess I gotta go</span>
-        <span class="verse-line">I guess it's time to go</span>
-        <span class="verse-line">I gotta let you go</span>
-        <span class="verse-line">I'm so devoted</span>
-      </div>
+  <!-- Background image container: FULL SCREEN, NO CROP, stays whole -->
+  <div class="fullscreen-image"></div>
+
+  <!-- Text overlay: exactly the requested lyrics, no background box -->
+  <div class="verse-overlay">
+    <div class="lyrics-pure">
+      <span class="verse-line">I guess I gotta go</span>
+      <span class="verse-line">I guess it's time to go</span>
+      <span class="verse-line">I gotta let you go</span>
+      <span class="verse-line">I'm so devoted</span>
     </div>
   </div>
+
+  <!-- 
+    ============================================================
+    ✅ FULLSCREEN & NO CUT GUARANTEE:
+    - background-size: contain → entire image visible on any screen/rotation.
+    - On mobile/tablet: rotate device to see full image without any cropping.
+    - Dark background fills any leftover space elegantly (no ugly white gaps).
+    ✅ NO TEXT BOX: removed background, blur, border, padding, rounded corners from text container.
+    ✅ IMAGE PLACEHOLDER: currently set to '93dbc2c52df623e4fd95b455601d50b8.jpg'.
+       Replace that path with your actual image file (absolute or relative).
+    ============================================================
+  -->
 </body>
 </html>
