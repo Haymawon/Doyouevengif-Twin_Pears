@@ -11,9 +11,9 @@
       box-sizing: border-box;
     }
 
-    /* ---- minimalist foundation: only the essential card + text ---- */
+    
     body {
-      background: #0b0a0f;   /* deep neutral background, no extra images */
+      background: #0b0a0f;   
       display: flex;
       align-items: center;
       justify-content: center;
@@ -21,25 +21,16 @@
       font-family: system-ui, 'Segoe UI', 'Roboto', 'Inter', 'Helvetica Neue', sans-serif;
       padding: 1.5rem;
     }
-
-    /* 
-      MAIN CONTAINER 
-      - exactly respects the given image dimensions: 735px width × 474px height
-      - uses background-image (ONE SINGLE BACKGROUND IMAGE)
-      - fully responsive but preserves original aspect ratio
-      - placeholder image URL is clearly marked for replacement
-    */
+    
     .memory-card {
       position: relative;
-      max-width: 735px;          /* default image width */
+      max-width: 735px;          
       width: 100%;
-      aspect-ratio: 735 / 474;   /* forces perfect ratio 735:474 */
+      aspect-ratio: 735 / 474;   
       
-      /* ----- BACKGROUND IMAGE (placeholder) ----- */
-      /* 🔁 REPLACE THE URL BELOW WITH YOUR REAL IMAGE PATH 🔁 
-         Example: url('images/your-background.jpg') or absolute path */
-      background-image: url('https://picsum.photos/id/105/735/474');   /* placeholder (soft mountain lake) — 735x474 exact size */
-      background-size: cover;      /* fills container without distortion (ratio matches perfectly) */
+      
+      background-image: url('93dbc2c52df623e4fd95b455601d50b8.jpg');
+      background-size: cover;      
       background-position: center 30%;
       background-repeat: no-repeat;
       
@@ -49,27 +40,22 @@
       overflow: hidden;
     }
 
-    /* very subtle interactive lift – keeps focus on image+text, no extra media */
+    
     .memory-card:hover {
       transform: scale(1.01);
       box-shadow: 0 30px 50px -18px black;
     }
 
-    /* 
-      semi-transparent atmospheric overlay (pure CSS, no extra image)
-      enhances text readability while keeping background image fully visible
-    */
     .memory-card::before {
       content: "";
       position: absolute;
       inset: 0;
       background: linear-gradient(135deg, rgba(0, 0, 0, 0.35) 0%, rgba(0, 0, 0, 0.5) 100%);
       z-index: 1;
-      pointer-events: none;      /* text remains fully clickable/selectable */
+      pointer-events: none; 
       backdrop-filter: brightness(0.95) blur(0.5px);
     }
-
-    /* text wrapper — sits above background & overlay */
+    
     .verse-container {
       position: relative;
       z-index: 2;
@@ -81,7 +67,7 @@
       padding: 1.5rem;
     }
 
-    /* lyrical text block — clean, readable, emotional presence */
+    
     .lyrics {
       background: rgba(10, 8, 18, 0.75);
       backdrop-filter: blur(12px);
@@ -94,7 +80,7 @@
       transition: all 0.2s;
     }
 
-    /* each line treated as poetic verse */
+    
     .verse-line {
       display: block;
       font-weight: 500;
@@ -107,7 +93,7 @@
       font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', monospace;
     }
 
-    /* delicate separation: each line breathes */
+    
     .verse-line:first-child {
       margin-top: 0;
     }
@@ -115,7 +101,7 @@
       margin-bottom: 0;
     }
 
-    /* subtle italic for the last line to give emotional weight (devoted) */
+    
     .verse-line:last-child {
       font-style: italic;
       font-weight: 540;
@@ -123,7 +109,7 @@
       color: #ffefd6;
     }
 
-    /* ---- responsive typography: adapts to smaller screens but stays elegant ---- */
+    
     @media (max-width: 700px) {
       .lyrics {
         padding: 1.2rem 1.5rem;
@@ -156,7 +142,7 @@
       }
     }
 
-    /* ensure text remains perfectly readable even with thin screens */
+    
     @media (max-width: 360px) {
       .verse-line {
         font-size: 0.9rem;
@@ -164,20 +150,14 @@
       }
     }
 
-    /* optional: very fine detail — no additional images, no icons */
+    
     .memory-card, .memory-card::before, .lyrics {
-      user-select: text;    /* text can be selected naturally */
+      user-select: text;    
     }
   </style>
 </head>
 <body>
-
-  <!-- 
-    ONE BACKGROUND IMAGE + TEXT ONLY
-    - the image is applied as background to .memory-card
-    - no <img> tags, no extra decorative images
-    - text lines match the requested wording exactly
-  -->
+  
   <div class="memory-card">
     <div class="verse-container">
       <div class="lyrics">
@@ -188,19 +168,5 @@
       </div>
     </div>
   </div>
-
-  <!-- 
-    ======================================================
-    PLACEHOLDER INSTRUCTION:
-    Current background image: 'https://picsum.photos/id/105/735/474' 
-    (exact 735x474 pixels, serves as placeholder)
-
-    ✅ REPLACE WITH YOUR OWN IMAGE:
-    In .memory-card rule, change background-image: url('YOUR_IMAGE_PATH');
-    Supported formats: jpg, png, webp. 
-    Recommended: use an image with dimensions 735x474 for perfect fit,
-    but any image will adapt due to background-size: cover (ratio preserved).
-    ======================================================
-  -->
 </body>
 </html>
