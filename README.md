@@ -59,7 +59,7 @@ npm run build
 ```
 This will create a dist/ folder with static files ready to be deployed to any hosting service (Netlify, Vercel, GitHub Pages, etc.).
 
-🙌 Want to Contribute?
+# 🙌 Want to Contribute?
 Feel free to fork the repo, open issues, or submit pull requests. This project is just for fun — so if you have a weird idea, throw it in!
 
 Made with snacks by the DUEG (Lain, Aaliyah and friends)
