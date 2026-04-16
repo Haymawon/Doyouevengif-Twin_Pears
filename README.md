@@ -9,7 +9,7 @@ Twin Pears is a fun, collaborative blog where we share poems, random thoughts, a
 
 ---
 
-## 🛠️ Tech Stack
+## Tech Stack
 
 - [Vue 3](https://vuejs.org/) – The Progressive JavaScript Framework
 - [TypeScript](https://www.typescriptlang.org/) – Typed JavaScript
@@ -18,7 +18,7 @@ Twin Pears is a fun, collaborative blog where we share poems, random thoughts, a
 
 ---
 
-## 🚀 How to Build Your Own (Windows / macOS / Linux)
+## How to Build Your Own (Windows / macOS / Linux)
 
 ### 1️⃣ Prerequisites
 
@@ -59,7 +59,7 @@ npm run build
 ```
 This will create a dist/ folder with static files ready to be deployed to any hosting service (Netlify, Vercel, GitHub Pages, etc.).
 
-# 🙌 Want to Contribute?
+# Want to Contribute?
 Feel free to fork the repo, open issues, or submit pull requests. This project is just for fun — so if you have a weird idea, throw it in!
 
 Made with snacks by the DUEG crew (Lain, Aaliyah and friends)
