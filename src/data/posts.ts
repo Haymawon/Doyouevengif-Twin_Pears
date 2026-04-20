@@ -35,7 +35,7 @@ export const blogPosts: BlogPost[] = [
   time: "11:47 PM",
   tags: ["6days", "diary", "her"],
   category: "love",
-  image: "/6daysalone.jpg",
+  image: "/6daysalone.png",
 },
   {
       id: 15,
