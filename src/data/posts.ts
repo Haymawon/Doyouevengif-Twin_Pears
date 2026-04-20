@@ -33,7 +33,7 @@ export const blogPosts: BlogPost[] = [
   authorImg: "data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='40' r='20' fill='%23b28cef'/%3E%3Cpath d='M20,95 Q50,65 80,95 Z' fill='%23b28cef'/%3E%3C/svg%3E",
   date: "Apr 20, 2026",
   time: "11:47 PM",
-  tags: ["diary", "myanmar", "waiting"],
+  tags: ["6days", "diary", "her"],
   category: "love",
   image: "/6daysalone.jpg",
 },
