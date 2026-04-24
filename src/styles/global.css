@@ -632,3 +632,77 @@ footer {
   .post-full-title { font-size: 1.8rem; }
   .share-btn { width: 42px; height: 42px; font-size: 1.2rem; }
 }
+
+.love {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 24px;
+  background: #fdfaf3;
+  border-radius: 6px;
+  font-family: 'Padauk', 'Noto Sans Myanmar', sans-serif;
+  line-height: 1.9;
+  color: #1e2b2f;
+}
+
+.day {
+  margin-bottom: 28px;
+}
+
+.day-header {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 12px;
+  margin-bottom: 6px;
+  align-items: baseline;
+}
+
+.day-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.time {
+  background: #efebe5;
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-size: 0.9rem;
+}
+
+.date {
+  margin-left: auto;
+  font-size: 0.9rem;
+  color: #7a6e62;
+}
+
+.diary-text {
+  margin: 0 0 6px;
+  text-indent: 24px;
+  word-break: break-word;
+  overflow-wrap: anywhere;
+}
+
+.center {
+  text-align: center;
+}
+
+.dots {
+  letter-spacing: 8px;
+  color: #a39b91;
+}
+
+.note {
+  border-left: 3px solid #c9b6a0;
+  padding-left: 16px;
+  margin: 20px 0;
+}
+
+/* 📱 Mobile fix */
+@media (max-width: 480px) {
+  .love {
+    padding: 16px;
+  }
+
+  .day-title {
+    font-size: 1.3rem;
+  }
+}
